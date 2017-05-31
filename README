@@ -1,0 +1,5 @@
+Python code to fit for the multi-component velocity dispersion at the terminal velocity.
+
+Some aspects modelled on the FORTRAN code of ~/code/kinematics/errfit3comp.f, etc.
+ 
+N. McClure-Griffiths 31 May 2017
