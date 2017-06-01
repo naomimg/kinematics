@@ -4,6 +4,7 @@
 from numpy import *
 from pylab import *
 from astropy.io import fits
+from astropy.wcs import WCS
 import os
 import scipy 
 from scipy.interpolate import interp1d
@@ -27,7 +28,7 @@ def vterm(fname):
 #dr_int = interp1d(l, dr,kind='cubic',bounds_error=False,fill_value=1.)
 
 # open the FITS file
-input_cube='/Users/naomi/Data/GASS/GASS_GP.fits'
+input_cube='/Users/naomi/Data/GASS/GASSIII/gass_-20_0.fits'
 hdulist = fits.open(input_cube)
 im = hdulist[0].data
 hdr = hdulist[0].header
@@ -43,8 +44,15 @@ nch=dimensions[0+idimensions]       ## number of velocity channels
 nypix=dimensions[1+idimensions]
 nxpix=dimensions[2+idimensions]
 
-vels=zeros(nch)
+w = WCS(input_cube)
+x = zeros(nxpix)
+y=zeros(nypix)
+z = range(nch)
+lon,lat,vel=w.wcs_pix2world(x,y,z,0)
 
 # Read the terminal velocity values
 l1,v1=vterm('term_vel_q1.dat')   # First quadrant values
 l4,v4=vterm('term_vel_q4.dat')  # Fourth quadrant values
+
+
+
